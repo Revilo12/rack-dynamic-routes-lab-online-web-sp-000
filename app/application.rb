@@ -1,3 +1,4 @@
+require 'pry'
 class Application
 
   @@items = []
@@ -6,7 +7,7 @@ class Application
     resp = Rack::Response.new
     req = Rack::Request.new(env)
 
-    if req.path.match('/items/')
+    if req.path.match("/items/")
       search_item = /(?<=\/items\/).+/.match(req.path).to_s
       item = @@items.find {|item| item.name == search_item} if search_item
       if item
@@ -19,7 +20,6 @@ class Application
       resp.write "Route not found"
       resp.status = 404
     end
-
     resp.finish
   end
 end
